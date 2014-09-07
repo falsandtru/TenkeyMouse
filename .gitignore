@@ -1,0 +1,20 @@
+﻿# Extension
+**/*
+!**/
+!*.ahk
+!*.ini
+
+# Exclude
+/*
+**/
+
+# Include
+!.gitignore
+!/README.md
+!/LICENSE
+
+!Components/
+Components/*
+!Components/Buttons/
+!Config/
+!Plugins/
