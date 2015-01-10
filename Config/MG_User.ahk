@@ -27,6 +27,17 @@ if (!MG_IsEdit) {
 }
 ; MouseGestureL.ahk、MG_Edit.ahk共通
 
+#InstallKeybdHook
+#InstallMouseHook
+#HotkeyModifierTimeout 100
+SendMode Input
+SetKeyDelay, -1
+SetMouseDelay, -1
+
+Run "%A_AhkPath%" /r "%A_ScriptDir%\Config\tenkey.ahk"
+Run "%A_AhkPath%" /r "%A_ScriptDir%\Config\remap.ahk"
+Run "%A_AhkPath%" /r "%A_ScriptDir%\Config\mutate.ahk"
+Run "%A_AhkPath%" /r "%A_ScriptDir%\Config\vim.ahk"
 
 
 

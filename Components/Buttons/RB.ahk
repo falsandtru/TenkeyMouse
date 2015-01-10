@@ -1,4 +1,6 @@
-﻿Goto,MG_RB_End
+global MG_DisableDefRB, MG_RB_Status
+
+Goto,MG_RB_End
 
 MG_RB_Enable:
 	Hotkey,*RButton,MG_RB_DownHotkey,On
@@ -19,22 +21,28 @@ MG_RB_UpHotkey:
 return
 
 MG_RB_Down:
-	SetMouseDelay,-1
-	Send,{Blind}{RButton Down}
+	MG_RB_Status:=1
+	if (!MG_DisableDefRB && !GetKeyState("RButton")) {
+		SetMouseDelay,-1
+		Send,{Blind}{RButton Down}
+	}
 return
 
 MG_RB_Up:
-	SetMouseDelay,-1
-	Send,{Blind}{RButton Up}
+	if (!MG_DisableDefRB && GetKeyState("RButton")) {
+		SetMouseDelay,-1
+		Send,{Blind}{RButton Up}
+	}
+	MG_RB_Status:=0
 return
 
 MG_RB_Check:
 	if (!GetKeyState("RButton", "P")) {
 		MG_UnpressCntRB++
 		if (MG_UnpressCntRB > 3) {
-			MG_TriggerUp("RB")
-			SetMouseDelay,-1
-			Send,{Blind}{RButton}
+			;MG_TriggerUp("RB")
+			;SetMouseDelay,-1
+			;Send,{Blind}{RButton}
 		}
 	} else {
 		MG_UnpressCntRB := 0

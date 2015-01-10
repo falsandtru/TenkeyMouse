@@ -1,4 +1,6 @@
-﻿Goto,MG_MB_End
+global MG_DisableDefMB, MG_MB_Status
+
+Goto,MG_MB_End
 
 MG_MB_Enable:
 	Hotkey,*MButton,MG_MB_DownHotkey,On
@@ -19,26 +21,28 @@ MG_MB_UpHotkey:
 return
 
 MG_MB_Down:
-	if (!MG_DisableDefMB) {
+	MG_MB_Status:=1
+	if (!MG_DisableDefMB && !GetKeyState("MButton")) {
 		SetMouseDelay,-1
 		Send,{Blind}{MButton Down}
 	}
 return
 
 MG_MB_Up:
-	if (!MG_DisableDefMB) {
+	if (!MG_DisableDefMB && GetKeyState("MButton")) {
 		SetMouseDelay,-1
 		Send,{Blind}{MButton Up}
 	}
+	MG_MB_Status:=0
 return
 
 MG_MB_Check:
 	if (!GetKeyState("MButton", "P")) {
 		MG_UnpressCntMB++
 		if (MG_UnpressCntMB > 3) {
-			MG_TriggerUp("MB")
-			SetMouseDelay,-1
-			Send,{Blind}{MButton}
+			;MG_TriggerUp("MB")
+			;SetMouseDelay,-1
+			;Send,{Blind}{MButton}
 		}
 	} else {
 		MG_UnpressCntMB := 0

@@ -1,4 +1,6 @@
-﻿Goto,MG_LB_End
+global MG_DisableDefLB, MG_LB_Status
+
+Goto,MG_LB_End
 
 MG_LB_Enable:
 	Hotkey,*LButton,MG_LB_DownHotkey,On
@@ -19,22 +21,28 @@ MG_LB_UpHotkey:
 return
 
 MG_LB_Down:
-	SetMouseDelay,-1
-	Send,{Blind}{LButton Down}
+	MG_LB_Status:=1
+	if (!MG_DisableDefLB && !GetKeyState("LButton")) {
+		SetMouseDelay,-1
+		Send,{Blind}{LButton Down}
+	}
 return
 
 MG_LB_Up:
-	SetMouseDelay,-1
-	Send,{Blind}{LButton Up}
+	if (!MG_DisableDefLB && GetKeyState("LButton")) {
+		SetMouseDelay,-1
+		Send,{Blind}{LButton Up}
+	}
+	MG_LB_Status:=0
 return
 
 MG_LB_Check:
 	if (!GetKeyState("LButton", "P")) {
 		MG_UnpressCntLB++
 		if (MG_UnpressCntLB > 3) {
-			MG_TriggerUp("LB")
-			SetMouseDelay,-1
-			Send,{Blind}{LButton}
+			;MG_TriggerUp("LB")
+			;SetMouseDelay,-1
+			;Send,{Blind}{LButton}
 		}
 	} else {
 		MG_UnpressCntLB := 0

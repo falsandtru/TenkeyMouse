@@ -19,14 +19,14 @@ MG_X2B_UpHotkey:
 return
 
 MG_X2B_Down:
-	if (!MG_DisableDefX2B) {
+	if (!MG_DisableDefX2B && !GetKeyState("XButton2")) {
 		SetMouseDelay,-1
 		Send,{Blind}{XButton2 Down}
 	}
 return
 
 MG_X2B_Up:
-	if (!MG_DisableDefX2B) {
+	if (!MG_DisableDefX2B && GetKeyState("XButton2")) {
 		SetMouseDelay,-1
 		Send,{Blind}{XButton2 Up}
 	}
